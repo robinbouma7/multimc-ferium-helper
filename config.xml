@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--options-->
+<info>
+    <!--path naar de folder met multimc.exe-->
+    <mmcpath>C:/multimc/</mmcpath>
+
+    <!--hoeveel profiles er zijn-->
+    <profilenum>0</profilenum>
+
+
+
+</info>
