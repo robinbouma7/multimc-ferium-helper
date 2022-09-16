@@ -2,6 +2,16 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
+//class met info over een profile
+//info krijg je van config.json van ferium
+class profile {
+	name;
+	version;
+	modloader;
+	flodername;
+	mods = [];
+}
+
 app.whenReady().then(() => {
 	createWindow();
 
