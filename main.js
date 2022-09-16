@@ -1,5 +1,5 @@
 //include packages
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 //xml parser
 const xml2js = require('xml2js');
@@ -32,8 +32,13 @@ class Mod {
 }
 var mmcpath;
 var profiles;
+var win;
 
 app.whenReady().then(() => {
+
+	//preload command een functie aanwijzen
+	ipcMain.on('launchmmc', launchmmc);
+
 	createWindow();
 
 	loadxml("./config.xml");
@@ -57,7 +62,7 @@ app.on('window-all-closed', () => {
 
 const createWindow = () => {
 	//create a window with size 800x600
-	const win = new BrowserWindow({
+	win = new BrowserWindow({
 		width: 800,
 		height: 600,
 		webPreferences: {
@@ -140,7 +145,36 @@ function updatemods() {
 
 //launch multimc
 function launchmmc() {
-
+	var cp = require("child_process");
+	var programname;
+	if(process.platform == "win32") {
+		//windows
+		programname = "MultiMC.exe"
+	}
+	else if(process.platform == 'darwin') {
+		//mac
+		//ik weet niet precies hoe het op mac werkt dus gewoon weigeren
+        console.log("mac is currently not supported");
+        return;
+    }
+	else {
+		//waarschijnlijk linux
+		programname = "MultiMC";
+	}
+	console.log(`executing ${mmcpath + programname}`);
+	//launch multimc
+	cp.exec((mmcpath + programname).toString(), function (err, stdout, stderr) {
+		
+        if (err) {
+        	console.error(err);
+        	return;
+		}
+		console.log(stdout);
+	})
+	//wachten om multimc tijd te geven om te launchen
+	sleep(1000);
+	//programma afsluiten
+	app.quit();
 }
 
 //sets the path of multimc
@@ -148,4 +182,9 @@ function launchmmc() {
 function setmmcpath(path) {
 	console.log(`multimc path set to ${path}`);
 	mmcpath = path;
+}
+//wacht voor een bepaalde tijd
+//ms: aantal miliseconden om te wachten
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
