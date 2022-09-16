@@ -1,6 +1,6 @@
 //include packages
 const { app, BrowserWindow} = require('electron');
-const path = require('path')
+const path = require('path');
 
 app.whenReady().then(() => {
     createWindow();
@@ -9,7 +9,7 @@ app.whenReady().then(() => {
         if (BrowserWindow.getAllWindows().length === 0) {
             //if app is activated and there are no windows create one
             //this is for mac, explained below
-            createWindow()
+            createWindow();
         }
     })
 })
@@ -33,4 +33,54 @@ const createWindow = () => {
     });
     //load index.html in that window
     win.loadFile('index.html');
+}
+//create a profile with these parameters
+//name: name of the profile
+//version: minecraft version
+//modloder: forge, fabric, etc
+//foldername: name of the instance folder
+function createprofile(name, version, modloader, flodername) {
+
+}
+//switch to another profile
+//name: name of the profile to switch to
+function switchprofile(name) {
+
+}
+//delete a profile
+//name: name of the profile to delete
+function deleteprofile(name) {
+
+}
+//edit a profile, overwrites all the info with the info given
+//name: name of the profile
+//version: minecraft version
+//modloder: forge, fabric, etc
+//foldername: name of the instance folder
+function editprofile(name, version, modloader, flodername) {
+
+}
+//add a mod to a profile
+//type: modrinth, curseforge or github
+//identifier: project id(modrinth, curseforge), mod name(modrinth) or repository name
+function addmod(type, identifier) {
+
+}
+//removes a mod
+//name: name of the mod
+function removemod(name) {
+
+}
+//update all the mods in the current profile
+function updatemods() {
+
+}
+//launch multimc
+function launchmmc() {
+
+}
+//sets the path of multimc
+//path: path to the folder where multimc.exe is located
+function setmmcpath(path) {
+
 }
