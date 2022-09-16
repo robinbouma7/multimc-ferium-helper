@@ -1,4 +1,5 @@
 Note: Ik zal bij sommige dingen toevoegen dat het later ook nog kan (extra is).
+We zouden ook direct de config kunnen aanpassen voor de profielen maar om het overal gelijk te laten werken is dit niet handig (~/.config/ferium/config.json)
 Link git repro gorila devs voor instalatie.
 
 Stap 1 (profiel aanmaken): 
@@ -20,19 +21,21 @@ Stap 1 (profiel aanmaken):
             --output-dir <OUTPUT_DIR>
                 The directory to output mods to
 
-Stap 2:
+Stap 2 (losse mods):
     Command: ferium add [OPTIONS] <IDENTIFIER>
         Argumenten: 
             <IDENTIFIER>
                 The identifier of the mod/project/repository
-                    The Modrinth project ID is specified at the bottom of the left sidebar under
-                    'Technical information'. You can also use the project slug in the URL
-                    The CurseForge mod ID is specified at the top of the right sidebar under
-                    'About Project'
-                    The GitHub identifier is the repository's full name, e.g.
-                    `gorilla-devs/ferium`
-                    Note: Dit kunnen gewoon meerdere mod id's tegelijk zijn zover ik weet kan je ze scheiden met een spatie.
-                    (Extra: auto ophalen id van link via api en eventueel zelfs een opzoek systeem)
+                The Modrinth project ID is specified at the bottom of the left sidebar under
+                'Technical information'. You can also use the project slug in the URL
+                The CurseForge mod ID is specified at the top of the right sidebar under
+                'About Project'
+                The GitHub identifier is the repository's full name, e.g.
+                `gorilla-devs/ferium`
+                Note: Dit kunnen gewoon meerdere mod id's tegelijk zijn zover ik weet kan je ze scheiden met een spatie.
+                Je kan ook nog github mods toevoegen via owner/name.
+                Voor externe mods zet die in de modsfolder in deze map: user .
+                (Extra: auto ophalen id van link via api en eventueel zelfs een opzoek systeem)
         Opties:
             --dont-add-dependencies
                 The mod's dependencies will not be added
@@ -42,3 +45,28 @@ Stap 2:
 
             --dont-check-mod-loader
                 The mod loader will not be checked for this mod
+
+Stap 2 (modpacks):
+    Command: ferium modpack add [OPTIONS] <IDENTIFIER>
+        Argumenten:
+            <IDENTIFIER>
+                The identifier of the modpack/project
+                The Modrinth project ID is specified at the bottom of the left sidebar under
+                'Technical information'. You can also use the project slug for this
+                The CurseForge mod ID is specified at the top of the right sidebar under
+                'About Project'
+        Opties:
+            --install-overrides <INSTALL_OVERRIDES>
+                Whether to install the modpack's overrides to the output directory
+                This will override existing files
+
+            --output-dir <OUTPUT_DIR>
+                The Minecraft instance directory to install the modpack to
+
+Stap 3 (losse mods updaten):
+    Command: ferium upgrade
+    Note: Geen speciale opties alleen voor debugging maar dat geld bij elke Command.
+    Daarom heb ik deze express weg gelaten.
+
+Stap 3 (updaten modpacks):
+    Command: ferium modpack upgrade
