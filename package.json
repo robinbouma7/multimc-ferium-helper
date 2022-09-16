@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/robinbouma7/multimc-ferium-helper/issues"
   },
-  "homepage": "https://github.com/robinbouma7/multimc-ferium-helper#readme"
+  "homepage": "https://github.com/robinbouma7/multimc-ferium-helper#readme",
+  "dependencies": {
+    "electron": "^20.1.4"
+  }
 }
