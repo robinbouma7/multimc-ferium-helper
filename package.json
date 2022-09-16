@@ -1,0 +1,27 @@
+{
+  "name": "multimc-ferium-helper",
+  "version": "0.0.1",
+  "description": "application to easily use ferium with multimc",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robinbouma7/multimc-ferium-helper.git"
+  },
+  "contributors": [
+    {
+      "name": "Robin Bouma",
+      "email": "robinbouma711@gmail.com"
+    },
+    {
+      "name": "Tristan Zwart"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robinbouma7/multimc-ferium-helper/issues"
+  },
+  "homepage": "https://github.com/robinbouma7/multimc-ferium-helper#readme"
+}
