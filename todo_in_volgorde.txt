@@ -1,0 +1,44 @@
+Note: Ik zal bij sommige dingen toevoegen dat het later ook nog kan (extra is).
+Link git repro gorila devs voor instalatie.
+
+Stap 1 (profiel aanmaken): 
+    Command: ferium profile create [OPTIONS]
+        opties:
+           --game-version <GAME_VERSION>
+                The Minecraft version to check compatibility for
+
+            --import [<IMPORT>]
+                Copy over the mods from an existing profile
+                Optionally, provide the name of the profile to import mods from
+
+            --mod-loader <MOD_LOADER>
+                The mod loader to check compatibility for [possible values: quilt, fabric, forge]
+
+            --name <NAME>
+                The name of the profile
+            
+            --output-dir <OUTPUT_DIR>
+                The directory to output mods to
+
+Stap 2:
+    Command: ferium add [OPTIONS] <IDENTIFIER>
+        Argumenten: 
+            <IDENTIFIER>
+                The identifier of the mod/project/repository
+                    The Modrinth project ID is specified at the bottom of the left sidebar under
+                    'Technical information'. You can also use the project slug in the URL
+                    The CurseForge mod ID is specified at the top of the right sidebar under
+                    'About Project'
+                    The GitHub identifier is the repository's full name, e.g.
+                    `gorilla-devs/ferium`
+                    Note: Dit kunnen gewoon meerdere mod id's tegelijk zijn zover ik weet kan je ze scheiden met een spatie.
+                    (Extra: auto ophalen id van link via api en eventueel zelfs een opzoek systeem)
+        Opties:
+            --dont-add-dependencies
+                The mod's dependencies will not be added
+
+            --dont-check-game-version
+                The game version will not be checked for this mod
+
+            --dont-check-mod-loader
+                The mod loader will not be checked for this mod
