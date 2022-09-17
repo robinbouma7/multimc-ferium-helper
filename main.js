@@ -8,6 +8,7 @@ var builder = new xml2js.Builder();
 //filesystem
 const fs = require('fs');
 const os = require('os');
+const cp = require("child_process");
 
 //class met info over een profile
 //info krijg je van config.json van ferium
@@ -153,52 +154,66 @@ function loadxml(path) {
 //version: minecraft version
 //modloder: forge, fabric, etc
 //foldername: name of the instance folder
-function createprofile(name, version, modloader, flodername) {
+ipcMain.on('createprofile', function(event, name, version, modloader, flodername) {
 
-}
-
-//switch to another profile
-//name: name of the profile to switch to
-function switchprofile(name) {
-
-}
-
-//delete a profile
-//name: name of the profile to delete
-function deleteprofile(name) {
-
-}
-
+});
 //edit a profile, overwrites all the info with the info given
 //name: name of the profile
 //version: minecraft version
 //modloder: forge, fabric, etc
 //foldername: name of the instance folder
-function editprofile(name, version, modloader, flodername) {
+ipcMain.on('editprofile', function(event, name, version, modloader, flodername) {
 
-}
+});
+
+//switch to another profile
+//name: name of the profile to switch to
+ipcMain.on('switchprofile', function(event, name) {
+	//spawn een process met het command en launch arguments
+	var command = cp.spawn("ferium profile switch", [`--profile-name ${name}`]);
+
+	//als het process data output dat naar de console loggen
+	command.stdout.on('data', (data) => {
+		console.log(data.toString());
+	});
+	//als het programma een error heeft dat naar de console sturen
+	command.stderr.on('data', (data) => {
+		console.error(data.toString());
+	});
+	//zeggen als het programma afsluit
+	command.on('exit', (code) => {
+		console.log(`Child exited with code ${code}`);
+	});
+	console.log("switched profile");
+});
+
+//delete a profile
+//name: name of the profile to delete
+ipcMain.on('deleteprofile', function(event, name) {
+
+});
 
 //add a mod to a profile
 //type: modrinth, curseforge or github
 //identifier: project id(modrinth, curseforge), mod name(modrinth) or repository name
-function addmod(type, identifier) {
+ipcMain.on('addmod', function(event, type, identifier) {
 
-}
+});
 
 //removes a mod
 //name: name of the mod
-function removemod(name) {
+ipcMain.on('addremovemod', function(event, name) {
 
-}
+});
 
 //update all the mods in the current profile
-function updatemods() {
-
-}
+ipcMain.on('updatemods', function(event) {
+	
+});
 
 //launch multimc
 function launchmmc() {
-	var cp = require("child_process");
+	
 	console.log(`executing ${mmcexepath}`);
 	//launch multimc
 	cp.exec(mmcexepath.toString(), function (err, stdout, stderr) {

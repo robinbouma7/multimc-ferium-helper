@@ -18,7 +18,17 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 });
 //functies van main exposen zodat je ze kan runnen in de renderer
+//die run je dan met: window.electronAPI.functionname
+//functionname: () =>pcRenderer.send("maineventname", arguments)
+//in main: ipcMain.on('maineventname', function(event, arguments) { code });
 contextBridge.exposeInMainWorld('electronAPI', {
     launchmmc: () => ipcRenderer.send("launchmmc"),
-	submitsetup: (mmcpath, ultimmc) => ipcRenderer.send("submitsetup", mmcpath, ultimmc)
+	submitsetup: (mmcpath) => ipcRenderer.send("submitsetup", mmcpath),
+	createprofile: (name, version, modloader, flodername) => ipcRenderer.send("createprofile", name, version, modloader, flodername),
+	editprofile: (name, version, modloader, flodername) => ipcRenderer.send("editprofile", name, version, modloader, flodername),
+	switchprofile: (name) => ipcRenderer.send("switchprofile", name),
+	deleteprofile: (name) => ipcRenderer.send("deleteprofile", name),
+	addmod: (type, identifier) => ipcRenderer.send("addmod", type, identifier),
+	removemod: (name) => ipcRenderer.send("addmod", name),
+	updatemods: () => ipcRenderer.send("updatemods")
 });
