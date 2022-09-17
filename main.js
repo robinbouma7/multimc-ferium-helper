@@ -132,6 +132,7 @@ function loadxml(path) {
 	}
 	else {
 		firstopen = false;
+		mmcexepath = xml.info.mmcexepath;
 		setmmcpath(xml.info.mmcpath);
 		console.log(`exe path: ${xml.info.mmcexepath}`);
 		console.log(`number of profiles ${xml.info.profilenum}`);
@@ -190,24 +191,9 @@ function updatemods() {
 //launch multimc
 function launchmmc() {
 	var cp = require("child_process");
-	var programname;
-	if(process.platform == "win32") {
-		//windows
-		programname = "MultiMC.exe"
-	}
-	else if(process.platform == 'darwin') {
-		//mac
-		//ik weet niet precies hoe het op mac werkt dus gewoon weigeren
-        console.log("mac is currently not supported");
-        return;
-    }
-	else {
-		//waarschijnlijk linux
-		programname = "MultiMC";
-	}
-	console.log(`executing ${mmcpath + programname}`);
+	console.log(`executing ${mmcexepath}`);
 	//launch multimc
-	cp.exec((mmcpath + programname).toString(), function (err, stdout, stderr) {
+	cp.exec(mmcexepath.toString(), function (err, stdout, stderr) {
 		
         if (err) {
         	console.error(err);
@@ -216,7 +202,7 @@ function launchmmc() {
 		console.log(stdout);
 	})
 	//wachten om multimc tijd te geven om te launchen
-	sleep(1000);
+	sleep(5000);
 	//programma afsluiten
 	app.quit();
 }
