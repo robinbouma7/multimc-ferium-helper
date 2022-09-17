@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/robinbouma7/multimc-ferium-helper#readme",
   "dependencies": {
+    "config-ini-parser": "^1.6.1",
     "electron": "^20.1.4",
     "xml2js": "^0.4.23"
   }

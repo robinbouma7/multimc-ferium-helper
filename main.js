@@ -1,14 +1,18 @@
 //include packages
 const { app, BrowserWindow, dialog, ipcMain } = require('electron');
-const path = require('path');
 //xml parser
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser({ attrkey: "ATTR" });
 var builder = new xml2js.Builder();
-//filesystem
+//cfg parser
+var ConfigIniParser = require("config-ini-parser").ConfigIniParser;
+cfgparser = new ConfigIniParser();
+//andere includes
 const fs = require('fs');
 const os = require('os');
 const cp = require("child_process");
+const path = require('path');
+
 
 //class met info over een profile
 //info krijg je van config.json van ferium
