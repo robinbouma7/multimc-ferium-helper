@@ -13,7 +13,19 @@ const os = require('os');
 const cp = require("child_process");
 const path = require('path');
 
-
+//class voor instances
+//name: naam van de instance
+//version: minecraft versie
+//modloader: type modloader
+//modloaderversion: versie van de modloader
+//profile: de profile class als hij er een heeft
+class Instance {
+	name;
+	version
+	modloader;
+	modloaderversion;
+	profile;
+}
 //class met info over een profile
 //info krijg je van config.json van ferium
 //name: naam van het profiel
@@ -41,7 +53,7 @@ class Mod {
 }
 var mmcexepath;
 var mmcpath;
-var profiles;
+var instances;
 var win;
 var firstopen;
 var xml;
