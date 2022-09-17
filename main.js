@@ -7,6 +7,7 @@ const parser = new xml2js.Parser({ attrkey: "ATTR" });
 var builder = new xml2js.Builder();
 //filesystem
 const fs = require('fs');
+const os = require('os');
 
 //class met info over een profile
 //info krijg je van config.json van ferium
@@ -39,7 +40,6 @@ var firstopen;
 var xml;
 
 app.whenReady().then(() => {
-
 	//preload command een functie aanwijzen
 	ipcMain.on('launchmmc', launchmmc);
 
@@ -131,6 +131,14 @@ function loadxml(path) {
 		console.log("xml file has empty options");
 	}
 	else {
+		if(xml.info.configpath == undefined) {
+			xml.info.configpath.push((os.homedir() + "\\.config\\ferium\\config.json").toString());
+			updatexml(xml, "./config.xml");
+		}
+		else if(xml.info.configpath == "") {
+			xml.info.configpath = (os.homedir() + "\\.config\\ferium\\config.json").toString();
+			updatexml(xml, "./config.xml");
+		}
 		firstopen = false;
 		mmcexepath = xml.info.mmcexepath;
 		setmmcpath(xml.info.mmcpath);
@@ -200,7 +208,7 @@ function launchmmc() {
         	return;
 		}
 		console.log(stdout);
-	})
+	});
 	//wachten om multimc tijd te geven om te launchen
 	sleep(5000);
 	//programma afsluiten
