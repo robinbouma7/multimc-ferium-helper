@@ -16,12 +16,14 @@ const cp = require("child_process");
 //version: minecraft versie
 //modloader: type modloader (fabric, forge, etc.)
 //foldername: naam van de folder in de multimc instances folder
+//instancename: naam van de instance
 //mods: een array van Mod classes
 class Profile {
 	name;
 	version;
 	modloader;
 	flodername;
+	instancename;
 	mods;
 }
 //class met info over mods
@@ -144,6 +146,10 @@ function loadxml(path) {
 		console.log(`number of profiles ${xml.info.profilenum}`);
 	}
 	
+}
+//read the instances in the instances folder
+function readinstances() {
+
 }
 
 //create a profile with these parameters
