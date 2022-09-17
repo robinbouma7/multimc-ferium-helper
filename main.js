@@ -132,11 +132,7 @@ function loadxml(path) {
 		console.log("xml file has empty options");
 	}
 	else {
-		if(xml.info.configpath == undefined) {
-			xml.info.configpath.push((os.homedir() + "\\.config\\ferium\\config.json").toString());
-			updatexml(xml, "./config.xml");
-		}
-		else if(xml.info.configpath == "") {
+		if(xml.info.configpath == undefined || xml.info.configpath == "") {
 			xml.info.configpath = (os.homedir() + "\\.config\\ferium\\config.json").toString();
 			updatexml(xml, "./config.xml");
 		}
