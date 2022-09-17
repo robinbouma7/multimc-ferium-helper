@@ -4,6 +4,7 @@ const path = require('path');
 //xml parser
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser({ attrkey: "ATTR" });
+var builder = new xml2js.Builder();
 //filesystem
 const fs = require('fs');
 
@@ -35,6 +36,7 @@ var mmcpath;
 var profiles;
 var win;
 var firstopen;
+var xml;
 
 app.whenReady().then(() => {
 
@@ -83,20 +85,17 @@ const createWindow = () => {
 	}
 	
 }
-ipcMain.on('selectdirs', function(event) {
-	const result = dialog.showOpenDialog(mainWindow, {
-		properties: ['openDirectory']
-	});
-	console.log('directories selected', result.filePaths)
-});
 ipcMain.on('submitsetup', function(event, path) {
 	// Access form data here
-	console.log(`multimc path: ${path}, ultimmc: ${ultimmc}`);
+	console.log(`multimc path: ${path}`);
 	mmcexepath = path;
 	//remove the last 11 characters from the string to remove the exe name
 	mmcpath = mmcexepath.substring(0, mmcexepath.length - 11);
 	console.log(`console path: ${mmcpath}`);
-
+	xml.info.mmcpath = mmcpath;
+	xml.info.mmcexepath = mmcexepath;
+	updatexml(xml, "./config.xml")
+	win.loadFile("index.html");
 });
 //first setup, to set path and things
 function setup() {
@@ -105,7 +104,7 @@ function setup() {
 //load confix xml file
 //path: path naar xml bestand
 function loadxml(path) {
-	var data;
+	
 	console.log(`xml file path: ${path}`);
 	//zet de data in bestand over naar file
 	var file = fs.readFileSync(path, "utf8");
@@ -118,21 +117,21 @@ function loadxml(path) {
             console.log(error);
 			return;
         }
-        data = result
+        xml = result
     });
 	//verwerk de data uit het xml bestand
-	if(data.info.mmcpath == undefined || data.info.mmcexepath == undefined) {
+	if(xml.info.mmcpath == undefined || xml.info.mmcexepath == undefined) {
 		console.log("xml file is incorrect")
 	}
-	else if(data.info.mmcpath == "" || data.info.mmcexepath == "") {
+	else if(xml.info.mmcpath == "" || xml.info.mmcexepath == "") {
 		firstopen = true;
 		console.log("xml file has empty options");
 	}
 	else {
 		firstopen = false;
-		setmmcpath(data.info.mmcpath);
-		console.log(`exe path: ${data.info.mmcexepath}`);
-		console.log(`number of profiles ${data.info.profilenum}`);
+		setmmcpath(xml.info.mmcpath);
+		console.log(`exe path: ${xml.info.mmcexepath}`);
+		console.log(`number of profiles ${xml.info.profilenum}`);
 	}
 	
 }
@@ -229,4 +228,12 @@ function setmmcpath(path) {
 //ms: aantal miliseconden om te wachten
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+function updatexml(xml, path) {
+	var xmldata = builder.buildObject(xml);
+	fs.writeFile(path, xmldata, function(err, data) {
+		if (err) console.log(err);
+
+      	console.log("successfully updated xml");
+	});
 }
