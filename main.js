@@ -83,18 +83,21 @@ const createWindow = () => {
 	else {
 		win.loadFile('index.html');
 	}
-	
+	console.log("window created")
 }
 ipcMain.on('submitsetup', function(event, path) {
-	// Access form data here
 	console.log(`multimc path: ${path}`);
 	mmcexepath = path;
+
 	//remove the last 11 characters from the string to remove the exe name
 	mmcpath = mmcexepath.substring(0, mmcexepath.length - 11);
 	console.log(`console path: ${mmcpath}`);
+
 	xml.info.mmcpath = mmcpath;
 	xml.info.mmcexepath = mmcexepath;
+
 	updatexml(xml, "./config.xml")
+
 	win.loadFile("index.html");
 });
 //first setup, to set path and things
@@ -229,6 +232,9 @@ function setmmcpath(path) {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+//update an xml file
+//xml: the parsed xml object
+//path: the path to the xml file to edit
 function updatexml(xml, path) {
 	var xmldata = builder.buildObject(xml);
 	fs.writeFile(path, xmldata, function(err, data) {
