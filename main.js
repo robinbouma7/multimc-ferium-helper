@@ -1,5 +1,5 @@
 //include packages
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain } = require('electron');
 const path = require('path');
 //xml parser
 const xml2js = require('xml2js');
@@ -30,18 +30,22 @@ class Mod {
 	identifier;
 	type;
 }
+var mmcexepath;
 var mmcpath;
 var profiles;
 var win;
+var firstopen;
 
 app.whenReady().then(() => {
 
 	//preload command een functie aanwijzen
 	ipcMain.on('launchmmc', launchmmc);
 
+	loadxml("./config.xml");
+
 	createWindow();
 
-	loadxml("./config.xml");
+	
 
 	app.on('activate', () => {
 		if (BrowserWindow.getAllWindows().length === 0) {
@@ -66,11 +70,37 @@ const createWindow = () => {
 		width: 800,
 		height: 600,
 		webPreferences: {
-			preload: path.join(__dirname, 'preload.js')
+			preload: path.join(__dirname, 'preload.js'),
+			enableRemoteModule: true
 		}
 	});
 	//load index.html in that window
-	win.loadFile('index.html');
+	if(firstopen) {
+		win.loadFile('setup.html');
+	}
+	else {
+		win.loadFile('index.html');
+	}
+	
+}
+ipcMain.on('selectdirs', function(event) {
+	const result = dialog.showOpenDialog(mainWindow, {
+		properties: ['openDirectory']
+	});
+	console.log('directories selected', result.filePaths)
+});
+ipcMain.on('submitsetup', function(event, path) {
+	// Access form data here
+	console.log(`multimc path: ${path}, ultimmc: ${ultimmc}`);
+	mmcexepath = path;
+	//remove the last 11 characters from the string to remove the exe name
+	mmcpath = mmcexepath.substring(0, mmcexepath.length - 11);
+	console.log(`console path: ${mmcpath}`);
+
+});
+//first setup, to set path and things
+function setup() {
+
 }
 //load confix xml file
 //path: path naar xml bestand
@@ -91,8 +121,20 @@ function loadxml(path) {
         data = result
     });
 	//verwerk de data uit het xml bestand
-	setmmcpath(data.info.mmcpath);
-	console.log(`number of profiles ${data.info.profilenum}`);
+	if(data.info.mmcpath == undefined || data.info.mmcexepath == undefined) {
+		console.log("xml file is incorrect")
+	}
+	else if(data.info.mmcpath == "" || data.info.mmcexepath == "") {
+		firstopen = true;
+		console.log("xml file has empty options");
+	}
+	else {
+		firstopen = false;
+		setmmcpath(data.info.mmcpath);
+		console.log(`exe path: ${data.info.mmcexepath}`);
+		console.log(`number of profiles ${data.info.profilenum}`);
+	}
+	
 }
 
 //create a profile with these parameters

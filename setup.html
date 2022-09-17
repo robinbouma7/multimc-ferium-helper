@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <title>setup</title>
+    </head>
+    <body>
+        <form id="setupform">
+            <input type="file" id="multimcpath" accept=".exe, .sh"/><br>
+            <input type="button" id="submitbutton" value="submit"/>
+        </form>
+    </body>
+    <script src="setup.js">
+    </script>
+</html>

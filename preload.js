@@ -19,5 +19,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 //functies van main exposen zodat je ze kan runnen in de renderer
 contextBridge.exposeInMainWorld('electronAPI', {
-    launchmmc: () => ipcRenderer.send("launchmmc")
+    launchmmc: () => ipcRenderer.send("launchmmc"),
+	submitsetup: (mmcpath, ultimmc) => ipcRenderer.send("submitsetup", mmcpath, ultimmc)
 });

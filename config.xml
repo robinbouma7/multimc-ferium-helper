@@ -3,6 +3,7 @@
 <info>
     <!--path naar de folder met multimc.exe-->
     <mmcpath>C:/multimc/</mmcpath>
+    <mmcexepath></mmcexepath>
 
     <!--hoeveel profiles er zijn-->
     <profilenum>0</profilenum>
