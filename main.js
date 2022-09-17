@@ -125,7 +125,8 @@ function loadxml(path) {
     });
 	//verwerk de data uit het xml bestand
 	if(xml.info.mmcpath == undefined || xml.info.mmcexepath == undefined) {
-		console.log("xml file is incorrect")
+		firstopen = true;
+		console.log("xml file is missing options");
 	}
 	else if(xml.info.mmcpath == "" || xml.info.mmcexepath == "") {
 		firstopen = true;
