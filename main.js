@@ -17,13 +17,23 @@ var event = new events.EventEmitter();
 
 //class voor instances
 //name: naam van de instance
+//foldername: naam van de folder
 //version: minecraft versie
 //modloader: type modloader
 //modloaderversion: versie van de modloader
 //profile: de profile class als hij er een heeft
 class Instance {
+	constructor(name, foldername, version, modloader, modloaderversion, profile) {
+		this.name = name;
+		this.foldername = foldername;
+		this.version = version;
+		this.modloader = modloader;
+		this.modloaderversion = modloaderversion;
+		this.profile = profile;
+	}
 	name;
-	version
+	foldername;
+	version;
 	modloader;
 	modloaderversion;
 	profile;
@@ -61,7 +71,14 @@ var firstopen;
 var xml;
 var instancefolders = [];
 var instancegot = function () {
+	//TODO: create class
 	console.log(instancefolders);
+	var i = 0;
+	while (i < instancefolders.length) {
+		//instances[i] = new Instance(null, instancefolders[i], null, null, null, null);
+		//i++;
+	}
+	//console.log(instances);
 }
 app.whenReady().then(() => {
 	//preload command een functie aanwijzen
