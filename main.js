@@ -6,7 +6,7 @@ const parser = new xml2js.Parser({ attrkey: "ATTR" });
 var builder = new xml2js.Builder();
 //cfg parser
 var ConfigIniParser = require("config-ini-parser").ConfigIniParser;
-cfgparser = new ConfigIniParser();
+var cfgparser = new ConfigIniParser();
 //andere includes
 const fs = require('fs');
 const os = require('os');
@@ -243,10 +243,6 @@ function launchmmc() {
 		}
 		console.log(stdout);
 	});
-	//wachten om multimc tijd te geven om te launchen
-	sleep(5000);
-	//programma afsluiten
-	app.quit();
 }
 
 //sets the path of multimc
@@ -271,3 +267,6 @@ function updatexml(xml, path) {
       	console.log("successfully updated xml");
 	});
 }
+ipcMain.on('closeapp', function(event) {
+	app.quit();
+});

@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
 //in main: ipcMain.on('maineventname', function(event, arguments) { code });
 contextBridge.exposeInMainWorld('electronAPI', {
     launchmmc: () => ipcRenderer.send("launchmmc"),
+	closeapp: () => ipcRenderer.send("closeapp"),
 	submitsetup: (mmcpath) => ipcRenderer.send("submitsetup", mmcpath),
 	createprofile: (name, version, modloader, flodername) => ipcRenderer.send("createprofile", name, version, modloader, flodername),
 	editprofile: (name, version, modloader, flodername) => ipcRenderer.send("editprofile", name, version, modloader, flodername),
