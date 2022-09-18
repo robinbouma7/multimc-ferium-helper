@@ -12,6 +12,8 @@ const fs = require('fs');
 const os = require('os');
 const cp = require("child_process");
 const path = require('path');
+var events = require('events');
+var event = new events.EventEmitter();
 
 //class voor instances
 //name: naam van de instance
@@ -57,15 +59,21 @@ var instances;
 var win;
 var firstopen;
 var xml;
-
+var instancefolders = [];
+var instancegot = function () {
+	console.log(instancefolders);
+}
 app.whenReady().then(() => {
 	//preload command een functie aanwijzen
 	ipcMain.on('launchmmc', launchmmc);
 
 	loadxml("./config.xml");
+	
+	readinstances();
 
 	createWindow();
 
+	
 	
 
 	app.on('activate', () => {
@@ -123,6 +131,30 @@ ipcMain.on('submitsetup', function(event, path) {
 function setup() {
 
 }
+function getinstances(instancefolder) { 
+	console.log(`instances folder: ${instancefolder}`);
+
+	fs.readdir(instancefolder, function(err, files) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			files.map(function(f) {
+				return instancefolder + f;
+			});
+			var i = 0;
+			while (i < files.length) {
+				if (files[i] == "_LAUNCHER_TEMP" || files[i] == "_MMC_TEMP" || files[i] == "instgroups.json") {
+					files.splice(i, 1);
+				} else {
+				  i++;
+				}
+			  }
+			instancefolders = files;
+			event.emit("gotinstances");
+		}
+	});
+}
 //load confix xml file
 //path: path naar xml bestand
 function loadxml(path) {
@@ -165,7 +197,10 @@ function loadxml(path) {
 }
 //read the instances in the instances folder
 function readinstances() {
-
+	var instancefolder = (mmcpath + "instances\\").toString();
+	
+	getinstances(instancefolder);
+	event.on("gotinstances", instancegot);
 }
 
 //create a profile with these parameters
