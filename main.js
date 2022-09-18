@@ -76,7 +76,7 @@ var instancegot = function () {
 	var i = 0;
 	while (i < instancefolders.length) {
 		//instances[i] = new Instance(null, instancefolders[i], null, null, null, null);
-		//i++;
+		i++;
 	}
 	//console.log(instances);
 }
