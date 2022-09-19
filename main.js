@@ -6,7 +6,7 @@ const parser = new xml2js.Parser({ attrkey: "ATTR" });
 var builder = new xml2js.Builder();
 //cfg parser
 var ConfigIniParser = require("config-ini-parser").ConfigIniParser;
-var cfgparser = new ConfigIniParser();
+var cfgparser = [];
 //andere includes
 const fs = require('fs');
 const os = require('os');
@@ -23,20 +23,12 @@ var event = new events.EventEmitter();
 //modloaderversion: versie van de modloader
 //profile: de profile class als hij er een heeft
 class Instance {
-	constructor(name, foldername, version, modloader, modloaderversion, profile) {
-		this.name = name;
-		this.foldername = foldername;
-		this.version = version;
-		this.modloader = modloader;
-		this.modloaderversion = modloaderversion;
-		this.profile = profile;
-	}
 	name;
 	foldername;
 	version;
 	modloader;
 	modloaderversion;
-	profile;
+	profile = [];
 }
 //class met info over een profile
 //info krijg je van config.json van ferium
@@ -52,7 +44,7 @@ class Profile {
 	modloader;
 	flodername;
 	instancename;
-	mods;
+	mods = [];
 }
 //class met info over mods
 //name: naam van de mod
@@ -65,7 +57,7 @@ class Mod {
 }
 var mmcexepath;
 var mmcpath;
-var instances;
+var instances = [];
 var win;
 var firstopen;
 var xml;
@@ -75,10 +67,20 @@ var instancegot = function () {
 	console.log(instancefolders);
 	var i = 0;
 	while (i < instancefolders.length) {
-		//instances[i] = new Instance(null, instancefolders[i], null, null, null, null);
+		//declare class
+		instances[i] = new Instance;
+		//set the instance folder
+		instances[i].foldername = instancefolders[i];
+		//get instance name
+		var instancecfg = fs.readFileSync((mmcpath + "instances/" +instancefolders[i] + "/instance.cfg").toString(), "utf8");
+		cfgparser[i] = new ConfigIniParser();
+		cfgparser[i].parse(instancecfg);
+		var instancename = cfgparser[i].get(null, "name");
+		instances[i].name = instancename;
+
 		i++;
 	}
-	//console.log(instances);
+	console.log(instances);
 }
 app.whenReady().then(() => {
 	//preload command een functie aanwijzen
