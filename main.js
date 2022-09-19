@@ -60,7 +60,7 @@ var xml;
 var instancefolders = [];
 var configpath;
 var instancegot = function () {
-	console.log(instancefolders);
+	//console.log(instancefolders);
 	var i = 0;
 	while (i < instancefolders.length) {
 		//declare class
@@ -94,8 +94,8 @@ var instancegot = function () {
 		i++;
 	}
 	var feriumdata = JSON.parse(fs.readFileSync(configpath.toString(), 'utf8'));
-	console.log(feriumdata.profiles.length);
-	console.log(instances.length);
+	//console.log(feriumdata.profiles.length);
+	//console.log(instances.length);
 	for(var i = 0; i < instances.length; i++) {
 		for(var j = 0; j < feriumdata.profiles.length; j++) {
 			instancepath = path.resolve((mmcpath + "instances/" + instances[i].foldername + "/.minecraft/mods").toString());
@@ -124,7 +124,7 @@ var instancegot = function () {
 
 					
 				}
-				console.log(instances[i].profile);
+				//console.log(instances[i].profile);
 			}
 		}
 
@@ -132,9 +132,13 @@ var instancegot = function () {
 	
 	//console.log(instances);
 }
+function sendinstances() {
+	return instances;
+}
 app.whenReady().then(() => {
 	//preload command een functie aanwijzen
 	ipcMain.on('launchmmc', launchmmc);
+	ipcMain.handle('getinstances', sendinstances)
 
 	loadxml("./config.xml");
 	
@@ -177,7 +181,7 @@ const createWindow = () => {
 		win.loadFile('setup.html');
 	}
 	else {
-		win.loadFile('index.html');
+		win.loadFile('instances.html');
 	}
 	console.log("window created")
 }

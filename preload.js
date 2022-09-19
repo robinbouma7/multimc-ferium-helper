@@ -31,5 +31,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
 	deleteprofile: (name) => ipcRenderer.send("deleteprofile", name),
 	addmod: (type, identifier) => ipcRenderer.send("addmod", type, identifier),
 	removemod: (name) => ipcRenderer.send("addmod", name),
-	updatemods: () => ipcRenderer.send("updatemods")
+	updatemods: () => ipcRenderer.send("updatemods"),
+	getinstances: () => ipcRenderer.invoke('getinstances')
 });

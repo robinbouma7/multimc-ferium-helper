@@ -4,10 +4,48 @@
     <head>
         <meta charset="UTF-8">
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
         <title>multimc ferium helper</title>
+        <style>
+            .left-div {
+                width: 40%;
+                height: 40%;
+                left: 5%;
+                border: 2px solid black;
+                border-radius: 10px;
+                position: fixed;
+            }
+           .right-div {
+                width: 40%;
+                height: 40%;
+                left: 55%;
+                border: 2px solid black;
+                border-radius: 10px;
+                position: fixed;
+            }
+            .main-div {
+                position: fixed;
+            }
+
+        </style>
     </head>
     <body>
-        
+        <div class="main-div" style="top: 5%">
+            <div class="left-div">
+                
+            </div>            
+            <div class="right-div">
+                
+            </div>
+        </div>
+        <div class="main-div" style="top: 55%">
+            <div class="left-div">
+
+            </div>            
+            <div class="right-div">
+                
+            </div>
+        </div>
+        <script src="instances.js"></script>
     </body>
 </html>
