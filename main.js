@@ -78,6 +78,23 @@ var instancegot = function () {
 		var instancename = cfgparser[i].get(null, "name");
 		instances[i].name = instancename;
 
+
+		//var instancedata = require((mmcpath + "instances/" +instancefolders[i] + "/mmc-pack.json").toString());
+		var instancedata = JSON.parse(fs.readFileSync((mmcpath + "instances/" +instancefolders[i] + "/mmc-pack.json").toString(), 'utf8'));
+		for(var j = 0; j < instancedata.components.length; j++) {
+			if(instancedata.components[j].cachedName == "Minecraft") {
+				instances[i].version = instancedata.components[j].version;
+			}
+			else if(instancedata.components[j].cachedName == "Fabric Loader") {
+				instances[i].modloader = "fabric";
+				instances[i].modloaderversion = instancedata.components[j].version;
+			}
+			else if(instancedata.components[j].cachedName == "Forge") {
+				instances[i].modloader = "forge";
+				instances[i].modloaderversion = instancedata.components[j].version;
+			}
+		}
+		//console.log(instancedata);
 		i++;
 	}
 	console.log(instances);
