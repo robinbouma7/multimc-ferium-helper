@@ -35,8 +35,6 @@ class Instance {
 //name: naam van het profiel
 //version: minecraft versie
 //modloader: type modloader (fabric, forge, etc.)
-//foldername: naam van de folder in de multimc instances folder
-//instancename: naam van de instance
 //mods: een array van Mod classes
 class Profile {
 	name;
@@ -108,11 +106,25 @@ var instancegot = function () {
 				instances[i].profile.name = feriumdata.profiles[j].name;
 				instances[i].profile.version = feriumdata.profiles[j].game_version;
 				instances[i].profile.modloader = feriumdata.profiles[j].mod_loader;
+				for(var k = 0; k < feriumdata.profiles[j].mods.length; k++) {
+					instances[i].profile.mods[k] = new Mod;
+					instances[i].profile.mods[k].name = feriumdata.profiles[j].mods[k].name;
+					if(feriumdata.profiles[j].mods[k].identifier.hasOwnProperty("CurseForgeProject")) {
+						instances[i].profile.mods[k].type = "curseforge";
+						instances[i].profile.mods[k].identifier = feriumdata.profiles[j].mods[k].identifier.CurseForgeProject;
+					}
+					else if(feriumdata.profiles[j].mods[k].identifier.hasOwnProperty("ModrinthProject")) {
+						instances[i].profile.mods[k].type = "modrinth";
+						instances[i].profile.mods[k].identifier = feriumdata.profiles[j].mods[k].identifier.ModrinthProject;
+					}
+					else if(feriumdata.profiles[j].mods[k].identifier.hasOwnProperty("GithubProject")) {
+						instances[i].profile.mods[k].type = "github";
+						instances[i].profile.mods[k].identifier = feriumdata.profiles[j].mods[k].identifier.GithubProject;
+					}
+
+					
+				}
 				console.log(instances[i].profile);
-			}
-			else {
-				//console.log((mmcpath + "instances/" + instances[i].foldername + "/.minecraft/mods").toString());
-				//console.log(feriumdata.profiles[j].output_dir);
 			}
 		}
 
