@@ -28,7 +28,7 @@ class Instance {
 	version;
 	modloader;
 	modloaderversion;
-	profile = [];
+	profile;
 }
 //class met info over een profile
 //info krijg je van config.json van ferium
@@ -42,8 +42,6 @@ class Profile {
 	name;
 	version;
 	modloader;
-	flodername;
-	instancename;
 	mods = [];
 }
 //class met info over mods
@@ -62,8 +60,8 @@ var win;
 var firstopen;
 var xml;
 var instancefolders = [];
+var configpath;
 var instancegot = function () {
-	//TODO: create class
 	console.log(instancefolders);
 	var i = 0;
 	while (i < instancefolders.length) {
@@ -97,7 +95,30 @@ var instancegot = function () {
 		//console.log(instancedata);
 		i++;
 	}
-	console.log(instances);
+	var feriumdata = JSON.parse(fs.readFileSync(configpath.toString(), 'utf8'));
+	console.log(feriumdata.profiles.length);
+	console.log(instances.length);
+	for(var i = 0; i < instances.length; i++) {
+		for(var j = 0; j < feriumdata.profiles.length; j++) {
+			instancepath = path.resolve((mmcpath + "instances/" + instances[i].foldername + "/.minecraft/mods").toString());
+  			feriumpath = path.resolve(feriumdata.profiles[j].output_dir);
+			if(instancepath.toLowerCase() == feriumpath.toLowerCase()) {
+				console.log(`instance  with name "${instances[i].name}" has profile`);
+				instances[i].profile = new Profile;
+				instances[i].profile.name = feriumdata.profiles[j].name;
+				instances[i].profile.version = feriumdata.profiles[j].game_version;
+				instances[i].profile.modloader = feriumdata.profiles[j].mod_loader;
+				console.log(instances[i].profile);
+			}
+			else {
+				//console.log((mmcpath + "instances/" + instances[i].foldername + "/.minecraft/mods").toString());
+				//console.log(feriumdata.profiles[j].output_dir);
+			}
+		}
+
+	}
+	
+	//console.log(instances);
 }
 app.whenReady().then(() => {
 	//preload command een functie aanwijzen
@@ -226,6 +247,7 @@ function loadxml(path) {
 		firstopen = false;
 		mmcexepath = xml.info.mmcexepath;
 		setmmcpath(xml.info.mmcpath);
+		configpath = xml.info.configpath;
 		console.log(`exe path: ${xml.info.mmcexepath}`);
 		console.log(`number of profiles ${xml.info.profilenum}`);
 	}
