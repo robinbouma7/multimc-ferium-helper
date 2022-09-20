@@ -28,6 +28,7 @@ class Instance {
 	version;
 	modloader;
 	modloaderversion;
+	iconpath;
 	profile;
 }
 //class met info over een profile
@@ -73,6 +74,7 @@ var instancegot = function () {
 		cfgparser[i].parse(instancecfg);
 		var instancename = cfgparser[i].get(null, "name");
 		instances[i].name = instancename;
+		instances[i].iconpath = (mmcpath + "instances/" +instancefolders[i] + "/.minecraft/icon.png");
 
 
 		//var instancedata = require((mmcpath + "instances/" +instancefolders[i] + "/mmc-pack.json").toString());
