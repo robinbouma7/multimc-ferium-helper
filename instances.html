@@ -7,45 +7,71 @@
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
         <title>multimc ferium helper</title>
         <style>
-            .left-div {
-                width: 40%;
-                height: 40%;
-                left: 5%;
+            .flex-container {
+                display: flex;
+                flex-wrap: wrap;
+                background-color: DodgerBlue;
+            }
+            .flex-container > div {
+                background-color: #f1f1f1;
+                width: 400px;
+                height: 200px;
+                margin: 10px;
+                position: relative;
+            }
+            img {
                 border: 2px solid black;
-                border-radius: 10px;
-                position: fixed;
+                border-radius: 5px;
+                margin: 5px;
             }
-           .right-div {
-                width: 40%;
-                height: 40%;
-                left: 55%;
-                border: 2px solid black;
-                border-radius: 10px;
-                position: fixed;
+            h2 {
+                position: absolute;
+                text-align: center;
+                top: 10px;
+                left: 125px;
             }
-            .main-div {
-                position: fixed;
+            .mcversion {
+                position: absolute;
+                text-align: center;
+                top: 50px;
+                left: 130px;
             }
-
+            .modloader {
+                position: absolute;
+                text-align: center;
+                top: 90px;
+                left: 130px;
+            }
         </style>
     </head>
     <body>
-        <div class="main-div" style="top: 5%">
-            <div class="left-div">
-                
+        <div class="flex-container" style="top: 5%">
+            <div>
+                <img src="cube.png"> 
+                <h2>instance name</h2>
+                <p class="mcversion">mc version</p>
+                <p class="modloader">modloader</p>
             </div>            
-            <div class="right-div">
-                
+            <div>
+                <img src="cube.png"> 
+                <h2>instance name</h2>
+                <p class="mcversion">mc version</p>
+                <p class="modloader">modloader</p>
+            </div>
+            <div>
+                <img src="cube.png">
+                <h2>instance name</h2>
+                <p class="mcversion">mc version</p>
+                <p class="modloader">modloader</p>
+            </div>            
+            <div>
+                <img src="cube.png">
+                <h2>instance name</h2>
+                <p class="mcversion">mc version</p>
+                <p class="modloader">modloader</p>
             </div>
         </div>
-        <div class="main-div" style="top: 55%">
-            <div class="left-div">
-
-            </div>            
-            <div class="right-div">
-                
-            </div>
-        </div>
+        <button id="launchmmc">launch multimc</button>
         <script src="instances.js"></script>
     </body>
 </html>

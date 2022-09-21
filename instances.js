@@ -1,20 +1,8 @@
-class Instance {
-	name;
-	foldername;
-	version;
-	modloader;
-	modloaderversion;
-	profile;
-}
-class Profile {
-	name;
-	version;
-	modloader;
-	mods = [];
-}
-class Mod {
-	name;
-	identifier;
-	type;
-}
 
+
+launchmmc.addEventListener("click", async () => {
+    window.electronAPI.launchmmc();
+    setTimeout(function () {
+        window.electronAPI.closeapp();
+    }, 5000);
+});
