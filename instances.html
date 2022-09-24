@@ -19,28 +19,77 @@
                 height: 200px;
                 margin: 10px;
                 position: relative;
+                border-radius: 10px;
+                border: 2px solid black;
             }
             img {
-                border: 2px solid black;
+                border: 1px solid black;
                 border-radius: 5px;
                 margin: 5px;
-                width: 75px;
+                width: 100px;
                 height: auto;
             }
             h2 {
                 position: absolute;
                 top: -10px;
-                left: 115px;
+                left: 125px;
             }
             .version {
                 position: absolute;
                 top: 30px;
-                left: 115px;
+                left: 125px;
             }
             .profilename {
                 position: absolute;
                 top: 50px;
-                left: 115px;
+                left: 125px;
+            }
+            .add-mod {
+                position: absolute;
+                top: 140px;
+                left: 20px;
+                width: 170px;
+            }
+            .edit-profile {
+                position: absolute;
+                top: 140px;
+                left: 210px;
+                width: 170px;
+            }
+            .save-profile {
+                position: absolute;
+                top: 170px;
+                left: 20px;
+                width: 170px;
+            }
+            .launch-instance {
+                position: absolute;
+                top: 170px;
+                left: 210px;
+                width: 170px;
+            }
+            .create-profile {
+                position: absolute;
+                top: 140px;
+                height: 50px;
+                left: 20px;
+                width: 360px;
+            }
+            button {
+                border: 2px solid black;
+                border-radius: 15px;
+                transition-duration: 0.5s;
+                display: inline-block;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: black;
+                color: white;
+            }
+            button:active {
+                background-color: black;
+                color: white;
+                transform: translateY(2px);
             }
         </style>
     </head>
@@ -51,12 +100,17 @@
                 <h2>instance name</h2>
                 <p class="version">modloader mc version</p>
                 <p class="profilename">profile: profilename</p>
+                <button class="add-mod">add mod</button>
+                <button class="edit-profile">edit profile</button>
+                <button class="save-profile">save profile</button>
+                <button class="launch-instance">launch instance</button>
             </div>            
             <div>
                 <img src="cube.png"> 
                 <h2>instance name</h2>
                 <p class="version">modloader mc version</p>
-                <p class="profilename">profile: profilename</p>
+                <p class="profilename"><b>no profile</b></p>
+                <button class="create-profile">create profile</button>
             </div>
             <div>
                 <img src="cube.png">

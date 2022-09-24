@@ -343,6 +343,7 @@ ipcMain.on('updatemods', function(event) {
 
 //launch multimc
 function launchmmc() {
+	//TODO: add launch argument to start the instance
 	
 	console.log(`executing ${mmcexepath}`);
 	//launch multimc
