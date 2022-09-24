@@ -1,8 +1,9 @@
 const launchmmc = document.getElementById('launchmmc');
-var addmodbutton = [];
-var editinstancebutton = [];
-var saveinstancebutton = [];
-var createinstancebutton = [];
+
+
+createinstanceelements();
+
+
 
 launchmmc.addEventListener("click", async () => {
     window.electronAPI.launchmmc();
@@ -10,3 +11,24 @@ launchmmc.addEventListener("click", async () => {
         window.electronAPI.closeapp();
     }, 5000);
 });
+
+async function createinstanceelements() {
+    var instanceclass = [];
+    instanceclass = await window.electronAPI.getinstances();
+    console.log(instanceclass);
+}
+function addmod() {
+
+}
+function editprofile() {
+
+}
+function saveprofile() {
+
+}
+function launchinstance() {
+
+}
+function createprofile() {
+
+}

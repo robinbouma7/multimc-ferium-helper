@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
         <title>multimc ferium helper</title>
         <style>
             .flex-container {
@@ -73,7 +73,14 @@
                 top: 140px;
                 height: 50px;
                 left: 20px;
-                width: 360px;
+                width: 170px;
+            }
+            .launch-instance2 {
+                position: absolute;
+                top: 140px;
+                height: 50px;
+                left: 210px;
+                width: 170px;
             }
             button {
                 border: 2px solid black;
@@ -111,6 +118,7 @@
                 <p class="version">modloader mc version</p>
                 <p class="profilename"><b>no profile</b></p>
                 <button class="create-profile">create profile</button>
+                <button class="launch-instance2">launch instance</button>
             </div>
             <div>
                 <img src="cube.png">
